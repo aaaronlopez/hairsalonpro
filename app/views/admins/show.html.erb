@@ -1,0 +1,9 @@
+<h1>Welcome back, <%= @admin.first_name %>!</h1>
+
+<p>Phone Number: <%= @admin.phone_number %></p>
+<p>Email: <%= @admin.email %></p>
+
+<h2>My customers:</h2>
+<em>You currently have no customers</em>
+</br>
+<%= link_to "Add a new customer", new_customer_path, class: "btn btn-primary" %>

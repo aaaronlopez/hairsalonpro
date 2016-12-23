@@ -19,3 +19,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Credentials
+/lib/assets/.twilio_account_sid
+/lib/assets/.twilio_auth_token
