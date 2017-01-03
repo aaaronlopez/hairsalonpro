@@ -1,0 +1,48 @@
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= form_for :appointment, url: customer_appointments_path do |f| %>
+  <div class="form-group">
+    <%= f.label :start, "Time and Date", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-2">
+      <%= time_select :appointment, :start_time, {:class => "form-control" } %>
+    </div>
+    <div class="col-lg-4">
+      <%= date_select :appointment, :start_time, {:class => "form-control" } %>
+    </div>
+    <div class="col-lg-2">
+      <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.sort, default: "Pacific Time (US & Canada)" %>
+    </div>
+  </div>
+
+  </br>
+  </br>
+  
+  <div class="form-group">
+    <%= f.label :end, "Time and Date", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-2">
+      <%= time_select :appointment, :end_time, {:class => "form-control" } %>
+    </div>
+    <div class="col-lg-4">
+      <%= date_select :appointment, :end_time, {:class => "form-control" } %>
+    </div>
+    <div class="col-lg-2">
+      <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.sort, default: "Pacific Time (US & Canada)" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                customer_appointments_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

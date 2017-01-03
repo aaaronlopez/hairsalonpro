@@ -4,6 +4,39 @@
 <p>Email: <%= @admin.email %></p>
 
 <h2>My customers:</h2>
-<em>You currently have no customers</em>
+
+<% if @customers.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <th scope="row"><%= customer.id %></th>
+          <td><%= customer.first_name %></td>
+          <td><%= customer.last_name %></td>
+          <td><%= customer.phone_number %></td>
+          <td><%= link_to 'Show', customer_path(customer) %></td>
+          <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
+          <td><%= link_to 'Destroy', customer_path(customer),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <em>You currently have no customers</em>
+<% end %>
+
 </br>
+</br>
+
 <%= link_to "Add a new customer", new_customer_path, class: "btn btn-primary" %>

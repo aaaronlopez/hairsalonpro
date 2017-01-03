@@ -1,5 +1,9 @@
 <h1>New Customer Registration</h1>
 
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+      
 <%= form_for :customer, url: customers_path do |f| %>
   <div class="form-group">
     <%= f.label :first_name, class: "control-label" %>
@@ -9,11 +13,6 @@
   <div class="form-group">
     <%= f.label :last_name, class: "control-label" %>
     <%= f.text_field :last_name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email, class: "control-label" %>
-    <%= f.text_field :email, class: "form-control" %>
   </div>
 
   <div class="form-group">

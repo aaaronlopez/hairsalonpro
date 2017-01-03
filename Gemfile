@@ -7,8 +7,10 @@ end
 
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
-#Twilio
+# Twilio
 gem 'twilio-ruby'
+# User authentication
+gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'

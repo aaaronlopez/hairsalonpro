@@ -1,0 +1,30 @@
+<h1>All Admins</h1>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Phone Number</th>
+    <th colspan="3"></th>
+  </tr>
+</thead>
+<tbody>
+  <% @admins.each do |admin| %>
+    <tr>
+      <th scope="row"><%= admin.id %></th>
+      <td><%= admin.first_name %></td>
+      <td><%= admin.last_name %></td>
+      <td><%= admin.email %></td>
+      <td><%= admin.phone_number %></td>
+      <td><%= link_to 'Show', admin_path(admin) %></td>
+      <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
+      <td><%= link_to 'Destroy', admin_path(admin),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
