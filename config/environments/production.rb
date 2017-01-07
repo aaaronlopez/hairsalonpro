@@ -2,8 +2,8 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Twilio Auth Token
-  TWILIO_ACCOUNT_SID = open("lib/assets/.twilio_account_sid").read()
-  TWILIO_AUTH_TOKEN = open("lib/assets/.twilio_auth_token").read()
+  TWILIO_ACCOUNT_SID = ENV["TWILIO_ACCOUNT_SID"]
+  TWILIO_AUTH_TOKEN = ENV["TWILIO_AUTH_TOKEN"]
   config.middleware.use Rack::TwilioWebhookAuthentication, TWILIO_AUTH_TOKEN, '/voice'
 
   # Code is not reloaded between requests.
