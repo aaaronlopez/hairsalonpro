@@ -1,5 +1,5 @@
-TWILIO_ACCOUNT_SID = open("lib/assets/.twilio_account_sid").read()
-TWILIO_AUTH_TOKEN = open("lib/assets/.twilio_auth_token").read()
-TWILIO_NUMBER = open("lib/assets/.twilio_number").read()
+TWILIO_ACCOUNT_SID = ENV["TWILIO_ACCOUNT_SID"]
+TWILIO_AUTH_TOKEN = ENV["TWILIO_AUTH_TOKEN"]
+TWILIO_NUMBER = "+17602354121"
 
 OFFICE_ADDRESS = '800 Howard St., San Francisco, CA 94103'.freeze
