@@ -13,6 +13,8 @@ gem 'twilio-ruby'
 gem 'devise'
 # Google API
 gem 'google-api-client'
+# Env variables
+gem 'figaro'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'

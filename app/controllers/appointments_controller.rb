@@ -56,7 +56,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     message = "Hi #{@appointment.customer.first_name}! Your appointment with Hair"\
         " Salon Pro on #{@appointment.start_time.strftime('%A, %B %d at %I:%M %p')}"\
-        " has been CANCELLED. EVENT_ID: #{@appointment.event_id}"
+        " has been CANCELLED."
     send_sms(TWILIO_NUMBER, @appointment.customer.phone_number, message, nil)
 
     #delete_calendar_event(@appointment.event_id)

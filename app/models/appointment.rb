@@ -68,7 +68,7 @@ class Appointment < ApplicationRecord
   end
 
   def reminder
-    client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+    client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     time_str = ((self.time).localtime).strftime("%I:%M%p on %b. %d, %Y")
     reminder = "Hi #{self.customer.name}. Just a reminder that you have an appointment coming up at #{time_str}."
     message = @client.account.messages.create(

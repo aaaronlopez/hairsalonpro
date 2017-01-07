@@ -63,7 +63,7 @@ class TwilioController < ApplicationController
             message = "You currently do not have any appointments scheduled."
           end
 
-        elsif response = "2"
+        elsif response == "2"
 
         end
       else

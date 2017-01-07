@@ -1,6 +1,7 @@
 require 'google/apis/calendar_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
+require 'google/api_client/client_secrets'
 require 'fileutils'
 
 module GoogleCalendar
@@ -15,8 +16,7 @@ module GoogleCalendar
 
   # API Initialization
   FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
-
-  client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
+  client_id = Google::Auth::ClientId.from_hash(JSON.parse(ENV['GOOGLE_CLIENT_SECRETS']))
   token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
   authorizer = Google::Auth::UserAuthorizer.new(
     client_id, SCOPE, token_store)

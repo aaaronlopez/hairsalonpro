@@ -24,3 +24,6 @@
 /lib/assets/.twilio_account_sid
 /lib/assets/.twilio_auth_token
 /lib/assets/.client_secret.json
+
+# Ignore application configuration
+/config/application.yml

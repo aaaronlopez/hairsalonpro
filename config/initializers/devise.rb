@@ -7,6 +7,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '34ca67aee9f2c7750459cf2b763d79dbf6318309ce91982e68aeb520b3c42aa4daac38f02ffccddf5b3695c3882af2f79d548fd491a00005560ae322deb6b163'
+  config.secret_key = 'ed841ab261b1879263a609c240d8962babb3310b5f235ce172504320fd202f334a524229e27f8520d36a1f28d93a57623ba8b429e6df44a0471263e0f17bb65d'
 
   config.scoped_views = true
   

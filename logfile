@@ -1,0 +1,14 @@
+LOG:  database system was shut down at 2017-01-06 23:33:08 PST
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "hairsalonpro_development" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist
+FATAL:  role "hairsalonpro" does not exist

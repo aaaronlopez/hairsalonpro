@@ -1,5 +1,5 @@
 class SmsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  #skip_before_action :verify_authenticity_token
 
   def new_customer
     @customer = Customer.find(params[:customer_id])
@@ -14,7 +14,7 @@ class SmsController < ApplicationController
 
   private
   def send_message(twilio_number, phone_number, message, media_url)
-    client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+    client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     message = client.messages.create(
       from: twilio_number,
       to: phone_number,
