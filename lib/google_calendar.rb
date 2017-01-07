@@ -51,10 +51,10 @@ module GoogleCalendar
     events
   end
 
-  def insert_calendar_event(start_time, end_time, title)
+  def insert_calendar_event(start_time, end_time, title, location)
     event = Google::Apis::CalendarV3::Event.new(
       summary: title,
-      location: '800 Howard St., San Francisco, CA 94103',
+      location: location,
       start: {
         date_time: start_time,
         time_zone: 'America/Los_Angeles',

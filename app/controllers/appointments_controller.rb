@@ -23,7 +23,7 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       summary = "Hair Cut - #{@appointment.customer.first_name}"
       event = insert_calendar_event(@appointment.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
-        @appointment.end_time.strftime('%Y-%m-%dT%H:%M:%S'), summary)
+        @appointment.end_time.strftime('%Y-%m-%dT%H:%M:%S'), summary, OFFICE_ADDRESS)
       @appointment.event_id = event.id
       @appointment.save
 
@@ -32,7 +32,7 @@ class AppointmentsController < ApplicationController
         " We hope to see you soon! #{event.html_link}"
       send_sms(TWILIO_NUMBER, @appointment.customer.phone_number, message, nil)
 
-      flash[:notice] = "You successfully added a new appointment! ID: #{@appointment.event_id}"
+      flash[:notice] = "You successfully added a new appointment!"
       redirect_to @appointment.customer
     else
       flash[:error] = @appointment.errors.full_messages.to_sentence
