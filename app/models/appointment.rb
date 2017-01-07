@@ -1,4 +1,8 @@
+require 'google_calendar'
+
 class Appointment < ApplicationRecord
+  include GoogleCalendar
+
   belongs_to :customer
 
   validates :start_time, presence: true
@@ -6,12 +10,15 @@ class Appointment < ApplicationRecord
   validate :start_cannot_be_greater_than_end, :time_cannot_be_in_the_past,
     :appointments_cannot_be_greater_than_limit
   #validate :appointment_during_working_hours
+  validate :appointment_cannot_overlap
 
   @@REMINDER_TIME = 30.minutes
 
   @@open_times = [nil, [8, 18], [8, 18], [8, 18], [8, 18], [8, 18]]
   @@open_days = [false, true, true, true, true, true, false]
   @@appt_minute_limit = 90
+  @@open_hour = 8
+  @@close_hour = 16
 
   def start_cannot_be_greater_than_end
     if start_time >= end_time
@@ -25,17 +32,6 @@ class Appointment < ApplicationRecord
     end
     if end_time < Time.now
       errors.add(:end_time, "can't be in the past")
-    end
-  end
-
-  def appointment_does_not_overlap
-    all_appoinments = Appointment.all
-    all_appoinments.each do |appt|
-      if appt.start_time <= start_time and appt.end_time <= end_time
-        errors.add(:start_time, "and end time cannot overlap with exisiting appointments")
-      elsif start_time <= appt.start_time and end_time <= appt.end_time
-        errors.add(:start_time, "and end time cannot overlap with exisiting appointments")
-      end
     end
   end
 
@@ -57,8 +53,18 @@ class Appointment < ApplicationRecord
     end
   end
 
-  def get_possible_appointments
-
+  def appointment_cannot_overlap
+    # TODO: Change variables to global constants.
+    day_start = Time.new(start_time.year, start_time.month, start_time.day, 8, 0, 0).iso8601
+    day_end = Time.new(start_time.year, start_time.month, start_time.day, 16, 0, 0).iso8601
+    events_by_day = list_events_by_time(day_start, day_end)
+    events_by_day.each do |event|
+      a = event[0].utc + Time.zone_offset('PST')
+      b = event[1].utc + Time.zone_offset('PST')
+      if end_time >= a and start_time <= b
+        errors.add(:start_time, " and end time interfere with current schedule.")
+      end
+    end
   end
 
   def reminder

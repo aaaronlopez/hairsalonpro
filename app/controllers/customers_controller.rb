@@ -15,6 +15,10 @@ class CustomersController < ApplicationController
   def new
   end
 
+  def edit
+    @customer = Customer.find(params[:id])
+  end
+
   def create
     @customer = Customer.new(customer_params)
     @customer.admin = current_admin
@@ -22,16 +26,15 @@ class CustomersController < ApplicationController
     if @customer.save
       message = "Welcome to Hair Salon Pro, #{@customer.first_name}! You have"\
         " been added as a customer by #{@customer.admin.first_name}.\n\nPlease"\
-        " respond to this number at any time for any information or to make an"\
-        " appointment."
+        " respond to this number at any time for any information"
       media_url = "http://cliparting.com/wp-content/uploads/2016/06/Happy-face-"\
         "smiley-face-emotions-clip-art-images-image-7.jpg"
       send_sms(TWILIO_NUMBER, @customer.phone_number, message, media_url)
 
-      flash[:success] = "You successfully added a new customer!"
+      flash[:notice] = "You successfully added a new customer!"
       redirect_to @customer
     else
-      flash[:danger] = @customer.errors.full_messages.to_sentence
+      flash[:error] = @customer.errors.full_messages.to_sentence
       redirect_to new_customer_path
     end
   end
@@ -40,7 +43,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
    
     if @customer.update(customer_params)
-      redirect_to @customer
+      redirect_to current_admin
     else
       redirect_to edit_customer_path
     end
@@ -50,7 +53,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @customer.destroy
  
-    redirect_to customers_path
+    redirect_to current_admin
   end
 
   private

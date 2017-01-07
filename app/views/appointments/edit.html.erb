@@ -1,6 +1,6 @@
-<h2>New appointments: <%= @new_appointments %></h2>
+<h1>Editing Appointment</h1>
 
-<%= form_for :appointment, url: customer_appointments_path do |f| %>
+<%= form_for :appointment, url: customer_appointment_path(params["customer_id"], params["id"]), method: :patch do |f| %>
 
   <div class="form-group">
     <%= f.label :start, "Time and Date", :class => 'control-label col-lg-2' %>
@@ -38,5 +38,5 @@
                 customer_appointments_path, :class => 'btn btn-default' %>
     </div>
   </div>
-
+ 
 <% end %>
