@@ -45,6 +45,9 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
    
     if @appointment.update(appointment_params)
+      message = "Hi #{@appointment.customer.first_name}! Your appointment with Hair"\
+        " Salon Pro has changed to #{@appointment.start_time.strftime('%A, %B %d at %I:%M %p')}"
+      send_sms(TWILIO_NUMBER, @appointment.customer.phone_number, message, nil)
       redirect_to customer_path(@customer)
     else
       redirect_to edit_appointment_path

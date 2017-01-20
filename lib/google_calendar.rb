@@ -2,11 +2,12 @@ require 'google/apis/calendar_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'google/api_client/client_secrets'
+require 'google/apis/compute_v1'
 require 'fileutils'
 
 module GoogleCalendar
   OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
-  APPLICATION_NAME = 'Google Calendar API Ruby Quickstart'
+  APPLICATION_NAME = 'Hair Salon Pro'
   CLIENT_SECRETS_PATH = 'lib/assets/.client_secret.json'
   CREDENTIALS_PATH = File.join(Dir.home, '.credentials',
                                "calendar-ruby-quickstart.yaml")
@@ -14,22 +15,9 @@ module GoogleCalendar
   # TODO: Maybe make this a global config constants.
   CALENDAR_ID = 'chq0o4uupm97nqfmdliia73bkc@group.calendar.google.com'
 
-  # API Initialization
-  FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
-  client_id = Google::Auth::ClientId.from_hash(JSON.parse(ENV['GOOGLE_CLIENT_SECRETS']))
-  token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
-  authorizer = Google::Auth::UserAuthorizer.new(
-    client_id, SCOPE, token_store)
-  user_id = 'default'
-  credentials = authorizer.get_credentials(user_id)
-  if credentials.nil?
-    credentials = authorizer.get_and_store_credentials_from_code(
-      user_id: user_id, code: ENV['GOOGLE_CREDENTIAL_CODE'], base_url: OOB_URI)
-  end
-
   @@service = Google::Apis::CalendarV3::CalendarService.new
   @@service.client_options.application_name = APPLICATION_NAME
-  @@service.authorization = credentials
+  @@service.authorization = Google::Auth.get_application_default([SCOPE])
 
   # @return array of events between time_min and time_max
   def list_events_by_time(time_min, time_max)
@@ -59,7 +47,6 @@ module GoogleCalendar
       }
     )
     result = @@service.insert_event(CALENDAR_ID, event)
-    #puts "Event created: #{result.html_link}"
   end
 
   def delete_calendar_event(event_id)

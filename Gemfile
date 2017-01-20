@@ -12,7 +12,7 @@ gem 'twilio-ruby'
 # User authentication
 gem 'devise'
 # Google API
-gem 'google-api-client'
+gem 'google-api-client', '~> 0.8'
 # Env variables
 gem 'figaro'
 

@@ -223,7 +223,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   figaro
-  google-api-client
+  google-api-client (~> 0.8)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

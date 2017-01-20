@@ -38,20 +38,6 @@ class TwilioController < ApplicationController
       sms_count += 1
     when 1
       if customer
-        # #TODO: modularize this
-        # day = Time.now # adding number of seconds in day
-        # day_start = Time.new(day.year, day.month, day.day, 8, 0, 0).iso8601
-        # day_end = Time.new(day.year, day.month, day.day, 16, 0, 0).iso8601
-        # events_by_day = list_events_by_time(day_start, day_end)
-        # curr_appointments = []
-        # events_by_day.each do |event|
-        #   curr_appointments.push([event[0].hour, event[1].hour])
-        # end
-        # results = []
-        # for i in 8..15
-        #   results.push([i, i + 1])
-        # end
-        # new_appointments = results - curr_appointments
         if response == "1"
           curr_appointments = Appointment.where(customer_id: customer.id)
           if curr_appointments
@@ -62,28 +48,20 @@ class TwilioController < ApplicationController
           else
             message = "You currently do not have any appointments scheduled."
           end
-
         elsif response == "2"
-
+          message = "This option is currently not available."
         end
+        sms_count = 0
       else
         if response == "yes"
           message = "Please respond with your first and last name."
         else
           message = "No to be added as a customer."
         end
-      end
-      sms_count += 1
+        sms_count += 1
+      end    
     when 2
-      if customer
-        if response == "yes"
-          message = "Great! Your appointment has been scheduled!"
-        elsif response == "no"
-          message = "Currently not available."
-        else
-          message = "There was an issue with your response."
-        end
-      else
+      if not customer
         resp_array = response.split(" ")
         first_name = resp_array[0]
         last_name = resp_array[1]
